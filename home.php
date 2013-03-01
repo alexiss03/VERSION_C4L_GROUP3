@@ -32,7 +32,7 @@
 				<table>
 					<tr>
 						<td>
-							<label for='Username'>Username:  </label>
+							<label for='Username'>Username: hohoho </label>
 						</td>
 						<td>
 							<input type='text' id='Username' name='Username' /></td>
