@@ -1,4 +1,7 @@
+
 <?php
+	session_start();
+	include"session_check.php";
 	$username = $_GET['username'];
 	echo($username);	
 	$host = "localhost";
@@ -12,28 +15,20 @@
 		die("Could not open connection to database server");
 	}
 	// generate and execute a query
-	$queryAddress = "DELETE FROM patient_address  WHERE username= '".$username."';";
-	$resultAddress = pg_query($connection, $queryAddress) or die("Error in query: $query." . pg_last_error($connection));
-	$query = "COMMIT";
-	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 
-	$queryEmail = "DELETE FROM patient_email_address  WHERE username= '".$username."';";
-	$resultEmail = pg_query($connection, $queryEmail) or die("Error in query: $query." . pg_last_error($connection));
-	$query = "COMMIT";
-	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
-
-	$queryContactNumber = "DELETE FROM patient_contact_number  WHERE username= '".$username."';";
-	$resultContactNumber = pg_query($connection, $queryContactNumber) or die("Error in query: $query." . pg_last_error($connection));
-	$query = "COMMIT";
-	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
-
-	$query = "DELETE FROM patient WHERE username = '".$username."';";
+	
+	$query = "DELETE FROM patient_family_illness WHERE username = '".$username."';";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 	$query = "COMMIT";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 
 	
-	pg_close($connection);
+	$query = "DELETE FROM patient WHERE username = '".$username."';";
+	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
+	$query = "COMMIT";
+	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 
-	header("Location: view_all_patients.php");
+	pg_close($connection);
+	$_SESSION['success']=1;
+	header('Location:delete_patient_main.php');
 ?>

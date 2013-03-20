@@ -1,4 +1,6 @@
 <?php
+	session_start();
+	include"session_check.php";
 	if(isset($_POST['confirmEdit'])){
 		echo "aaaaa";
 	}
@@ -9,7 +11,13 @@
 	$newAddress = $_POST['newAddressPatient'];
 	$contactNumber = $_POST['contactNumberPatient'];
 	$emailAdd = $_POST['emailAddressPatient'];
-	$medHistory = $_POST['medicalHistoryPatient'];
+	$height= $_POST['Height'];
+	$weight = $_POST['Weight'];
+	$presenthealth = $_POST['PresentHealth'];
+	$nonprescription = $_POST['NonPrescription'];
+	$prescription = $_POST['Prescription'];
+	$recreational = $_POST['Recreational'];
+	$carephysician = $_POST['CarePhysician'];
 	
 	// alter this as per your configuration
 	$host = "localhost";
@@ -22,32 +30,44 @@
 		
 	$query = "BEGIN WORK";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
+	if($_FILES["image"]["name"]!=NULL){
+			$imagename = $_FILES["image"]["name"];
+			$query = "UPDATE patient SET photo='$imagename' WHERE username='$username' "; 
+			$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
+			$query = "COMMIT";
+			$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
+			move_uploaded_file($_FILES["image"]["tmp_name"],
+			"Patients/" . $_FILES["image"]["name"]);
+	}
 	
-	$query = "UPDATE patient SET name='$name', gender='$gender', age='$age', medical_history='$medHistory' WHERE username='$username' "; 
+	
+	$query = "UPDATE patient SET name='$name', gender='$gender', age='$age', medical_history='$medHistory', address='$newAddress', email='$emailAdd', contact_number='$contactNumber', weight='$weight', height='$height', present_health='$presenthealth', nonprescription='$nonprescription', prescription='$prescription', recreational='$recreational', care_physician='$carephysician' WHERE username='$username' "; 
 	$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
 	$query = "COMMIT";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 	
-	$query = "UPDATE patient_address SET address='$newAddress' WHERE username='$username' "; 
-	$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
-	$query = "COMMIT";
-	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 	
-	$query = "UPDATE patient_email_address SET email_address='$emailAdd' WHERE username='$username' "; 
+	$query = "DELETE FROM patient_family_illness  WHERE username= '$username'";
+	//$query = "UPDATE doctor_specialization SET specialization='$specialization' WHERE username='$username' "; 
 	$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
 	$query = "COMMIT";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
+
+	foreach($_POST['Illness'] as $illness) {
+
+			$query = "INSERT INTO patient_family_illness(username,illness) VALUES('$username','$illness')";
+			$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
+			$query = "COMMIT";
+			$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
+	}
 	
-	$query = "UPDATE patient_contact_number SET contact_number='$contactNumber' WHERE username='$username' "; 
-	$result = pg_query($connection,$query) or die("Error in query: $query. " . pg_last_error($connection));
-	$query = "COMMIT";
-	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 	
 	
 	$query = "COMMIT";
 	$result = pg_query($connection, $query) or die("Error in query: $query." . pg_last_error($connection));
 	pg_close($connection);
-	header('Location:view_all_patients.php');
+	$_SESSION['success']=1;
+	header('Location:edit_patient_main.php');
 
 
 

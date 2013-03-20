@@ -1,137 +1,134 @@
 <?php
 	session_start();
+	include"menubar.php";
 ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UHS Information Management system</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/font-awesome-ie7.css" rel="stylesheet">
+    <link href="css/boot-business.css" rel="stylesheet">
+  </head>
+  <body>
+   
+   
+    <!-- Start: MAIN CONTENT -->
+    <div class="content">
+      <!-- Start: slider -->
+      <div class="slider">
+        <div class="container-fluid">
+          <div id="heroSlider" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="active item">
+                <div class="hero-unit">
+                  <div class="row-fluid">
+                    <div class="span7 marketting-info">
+                      <h1>UHS INFORMATION MANAGEMENT SYSTEM</h1>
+                      <p>
+                        This website is designed to provide the students of the university an easy access to the services of the University Health Service. This also serves as a record of their UHS medical information and medical histories.
+                      </p>                      
+                    </div>
+                    <div class="span5">
+                      <img src="img/placeholder0.jpg" class="thumbnail">
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+              <div class="item">
+                <div class="hero-unit">
+                  <div class="row-fluid">
+                    <div class="span7 marketting-info">
+                      <h1>UHS ADMINISTRATION</h1>
+                      <p>
+                        The University Health Service is headed by the Medical Director, assisted by the Deputy Director, and the heads of each department.<br><br>
 
-<html>
-	<head>
-		<title>
-			University of the  Philippines Health Service
-		</title>
-	</head>
-	<body>
-		<?php
-		$db=pg_connect("host=localhost port=5432 dbname=UHS_Information_Management_System user=postgres password=cmsc128");
-		?>
-		<link rel='stylesheet' type='text/css' href='home.css'>
-		<script type = "text/javascript" src = "javascripts/jquery.js"></script>
-		<script type = "text/javascript" src= "javascripts/home.js"></script>
-			<div id='box1'>
-			HISTORY
-			
-			</div>
-			<div id='box2'>
-			NEWS
-			</div>
-			<div id='box3'>
-			ABOUT
-			</div>
-		<?php if(!isset($_SESSION['Username'])){
-		echo"
-		<div id='log-in'>
-			<form name='log-in' method='post' action='loginvalidation.php'>
-				<table>
-					<tr>
-						<td>
-							<label for='Username'>Username: hohoho </label>
-						</td>
-						<td>
-							<input type='text' id='Username' name='Username' /></td>
-						</td>
-						<td colspan='2'>
-						<input type='submit' value='Log-in' title='Log-in' name='Log-in'/>
-						</td>
-						
-					</tr>
-					<tr>
-						<td>
-							<label for='Password'>Password: </label>
-						</td>
-						<td>
-							<input type='password' id='Password' name='Password' /></td>
-						</td>
-						<td>
-						</td>
-						
-					</tr>
-				</table>		
-			</form>
-		</div>";
-		}
-		else{
-			echo "<div id='log-in'><h2><p>Hello ".$_SESSION['Username']."!"."</p><a href='logout.php'>Logout</a></h2></div>";
-		}
-		?>
-		
-		<div id='historydiv'>
-		<p>
-		History
-		<p>The University Health Service is headed by the Medical Director, assisted by the Deputy Director, and the heads of each department.</p>
 
-<p>Medical Director: Dr. Marilyn P. Reaño<br>
-Deputy Director	:	Dr. Ma. Victoria Turalba<br><br>
+                        Medical Director: Dr. Marilyn P. ReaÃ±o<br>
+                        Deputy Director : Dr. Ma. Victoria Turalba<br>
+                      </p>         
+                    </div>
+                    <div class="span5">
+                      <img src="img/placeholder1.jpg" class="thumbnail">
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+              <div class="item">
+                <div class="hero-unit">
+                  <div class="row-fluid">
+                    <div class="span7 marketting-info">
+                      <h1>SERVICES </h1>
+                      <p>
+                        The hospital are offering the following services:<br><br>
 
-The hospital functions are categorized into:<br><br>
+                          1. Medical Services<br>
+                          2. Ancillary<br>
+                          3. Nursing Service<br>
+                          4. Dietary<br>
+                          5. X-RAY<br>
+                          6. Pharmacy<br>
+                          7. Laboratory<br>
+                          8. Dental<br>
+                          9. Administrative Services<br><br>
 
-1.MEDICAL – involves the treatment and management of patients<br>
-Head	 :	Dr. Ma. Victoria Turalba<br>
-Medical Staff	:	Dr. Marlina Almeda<br>
-Dr. Jessie Imelda Foronda<br>
-Dr. Ma. Teresa Pineda<br>
-Dr. Teresita Tolentino (casual)<br>
-Dr. Roland Lotoc (casual)<br><br>
-
-2. ANCILLARY – rendering direct patient care<br>
-
-a) Nursing Service<br>
-Head Nurse	 :	Ms. Marlene Cachuela<br>
-Nursing Staff	 :	14 nurses (4 casuals & 1 NGW), 2 midwives, 9 nursing attendants (1 casual & 1 NGW)<br><br>
-
-b) Dietary<br>
-Dietitian/Nutritionist	:	Ms. Normahita Gordoncillo<br>
-Dietary Staff	 :	3 cooks, 1 utility worker<br><br>
-
-c.) X-RAY<br>
-Head Radiologic	Technologist	:	Mr. William Tanamor<br>
-Staff	 :	1 registered Radiologic Technologist (casual)<br><br>
-
-d) Pharmacy<br>
-Head Pharmacist	 :	Ms. Corazon Andres<br>
-Staff	 :	2 registered Pharmacists (1 casual)<br><br>
-
-e) Laboratory<br>
-Head Med Tech	 :	Ms. Lilia A. Soliven<br>
-Staff	 :	2 registered Med Techs (1 casual)<br><br>
-
-f) Dental<br>
-Head Dentist	 :	Dr. Myla Avena<br>
-Staff	 :	Dr. Noel Altamirano, 1 Dental Aide (NGW)<br><br>
-
-3. ADMINISTRATIVE – concerns the execution of policies and support service in the area of finance, supply and property, housekeeping, laundry, transport and maintenance.<br><br>
-
-Administrative Officer	:	Ms. Elena Llaguna<br>
-Staff	 :	1 Record Officer<br>
-2 Philhealth clerks<br>
-1 Property Officer<br>
-2 Ambulance drivers<br>
-2 Laundry workers<br>
-4 Utility workers<br>
-(1 NGW)<br>
-(1 casual, 1 NGW)<br>
-</p>
-		</p>
-		</div>
-		
-		<div id='newsdiv'>
-		<p>
-		News
-		</p>
-		</div>
-		
-		<div id='aboutdiv'>
-		<p>
-		About
-		</p>
-		</div>
-
-	</body>
+                      </p>
+                    </div>
+                    <div class="span5">
+                      <img src="img/placeholder.jpg" class="thumbnail">
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+              <div class="item">
+                <div class="hero-unit">
+                  <div class="row-fluid">
+                    <div class="span7 marketting-info">
+                      <h1>THE DEVELOPERS</h1>
+                      <p>
+                        1. ALIGORA, Jerome Oliver<br>
+                        2. ARCILLA, Ma. Rosario Bernadette<br>
+                        3. ESTAYAN, John Darrel<br>
+                        4. LUCAS, Tristan John<br>
+                        5. SOLIS, Mary Alexis
+                      </p>
+                      <h3>                   
+                    </div>
+                    <div class="span5">
+                      <img src="img/placeholder.jpg" class="thumbnail">
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+            <a class="left carousel-control" href="#heroSlider" data-slide="prev">â€¹</a>
+            <a class="right carousel-control" href="#heroSlider" data-slide="next">â€º</a>
+          </div>
+        </div>
+      </div>
+      <!-- End: slider -->
+    </div>
+    <!-- End: MAIN CONTENT -->
+    <!-- Start: FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="row">
+        
+        </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="container">
+        <p>
+          &copy; 2013 | University Health Service Information Management System | All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+    <!-- End: FOOTER -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/boot-business.js"></script>
+  </body>
 </html>
